@@ -3,6 +3,15 @@ from .models import Destinations, Migrations, Presences, Ranks, Subunits
 
 
 class FilterForm(forms.Form):
+    rank = forms.ModelChoiceField(
+        queryset=Ranks.objects.all(),
+        required=False,
+        empty_label="PG",
+        widget=forms.Select(attrs={
+            'class': "bg-slate-900 rounded-md shadow-md p-2"
+        })
+    )
+
     military = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
@@ -30,6 +39,7 @@ class FilterForm(forms.Form):
     )
 
     date = forms.DateField(
+        required=False,
         widget=forms.DateInput(attrs={
             'type': "date",
             'class': "bg-slate-900 rounded-md shadow-md p-2"

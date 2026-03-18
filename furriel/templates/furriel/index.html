@@ -7,11 +7,13 @@
     <div class="w-full grid grid-cols-2 bg-slate-800 m-auto shadow-md">
         <!-- Menu de filtros de pesquisa -->
         <div class="flex flex-col items-center gap-2 p-2">
-            <h1>Filtro do pesquisa</h1>
+            <h1>Filtros de pesquisa</h1>
 
-            <form method="GET">
+            <form method="GET" class="text-center space-y-2">
                 {% csrf_token %}
 
+                {{ form.rank }}
+                
                 {{ form.military }}
 
                 {{ form.subunit }}
@@ -31,9 +33,9 @@
         <div class="flex flex-col items-center gap-2 p-2">
             <h1>Gerar relatórios</h1>
 
-            <form method="GET">
+            <form method="POST">
                 {% csrf_token %}
-                <button type="submit"
+                <button type="submit" name="save_pdf" value="save_pdf"
                     class="bg-blue-800 hover:bg-blue-600 rounded-md shadow-md p-2 cursor-pointer font-semibold">
                     Salvar Relatário
                 </button>
@@ -42,21 +44,26 @@
     </div>
 
     <!-- Lista de dados -->
-    <div class="flex flex-col w-full max-w-7xl bg-slate-700 h-[500px] shadow-md mb-10 rounded-b-md">
-        <table class="text-center">
-            <thead class="bg-slate-900 text-sm">
+    <div class="flex flex-col w-full max-w-4xl bg-slate-700 h-[324px] shadow-md mb-4 rounded-b-md overflow-y-auto">
+        <table class="text-center w-full">
+            <thead class="bg-slate-900 text-sm sticky top-0 z-10">
                 <tr>
+                    <th class="p-2">PG</th>
                     <th class="p-2">Nome</th>
-                    <th class="p-2">Nome</th>
-                    <th class="p-2">Nome</th>
+                    <th class="p-2">Subunidade</th>
+                    <th class="p-2">Destino</th>
+                    <th class="p-2">Data</th>
                 </tr>
             </thead>
-            <tbody class="bg-slate-600">
+
+            <tbody>
                 {% for presence in presences %}
-                    <tr class="shadow-md">
-                        <td class="p-2">{{ presence.date }}</td>
-                        <td class="p-2">data</td>
-                        <td class="p-2">data</td>
+                    <tr class="bg-slate-600 shadow-md">
+                        <td class="p-2">{{ presence.military.rank.name }}</td>
+                        <td class="p-2">{{ presence.military.name }}</td>
+                        <td class="p-2">{{ presence.military.subunit }}</td>
+                        <td class="p-2">{{ presence.destination }}</td>
+                        <td class="p-2">{{ presence.date|date:"d/m/Y" }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
