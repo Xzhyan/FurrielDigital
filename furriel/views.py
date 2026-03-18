@@ -26,20 +26,19 @@ def index(request):
         military = form.cleaned_data.get('military')
         subunit = form.cleaned_data.get('subunit')
         destination = form.cleaned_data.get('destination')
-        date = form.cleaned_data.get('date')
-        
-        # Primeiro filtro vai ser data, se não tiver uma data escolhia a atual é usada.
-        if not date:
-            date = timezone.now().date()
+        month = form.cleaned_data.get('month')
 
-        if date:
+        if month:
             presences = Presences.objects.filter(
-                date=date
+                date__year=month.year,
+                date__month=month.month
             ).select_related(
                 'military__rank',
                 'military__subunit',
                 'destination'
             )
+
+        print(month)
 
         filters = {}
 

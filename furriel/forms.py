@@ -30,7 +30,9 @@ class FilterForm(forms.Form):
     )
 
     destination = forms.ModelChoiceField(
-        queryset=Destinations.objects.all(),
+        queryset=Destinations.objects.exclude(
+            destination__in=['PRONTO', 'SSV']
+        ),
         required=False,
         empty_label="Destino",
         widget=forms.Select(attrs={
@@ -38,10 +40,18 @@ class FilterForm(forms.Form):
         })
     )
 
-    date = forms.DateField(
-        required=False,
+    # date = forms.DateField(
+    #     required=False,
+    #     widget=forms.DateInput(attrs={
+    #         'type': "date",
+    #         'class': "bg-slate-900 rounded-md shadow-md p-2"
+    #     })
+    # )
+
+    month = forms.DateField(
+        input_formats=['%Y-%m'],
         widget=forms.DateInput(attrs={
-            'type': "date",
+            'type': "month",
             'class': "bg-slate-900 rounded-md shadow-md p-2"
         })
     )
