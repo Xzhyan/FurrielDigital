@@ -1,5 +1,66 @@
 {% extends 'base.html' %}
+{% block title %}Furriel Digital{% endblock %}
 
 {% block content %}
-<div></div>
+<div class="flex flex-col items-center w-full">
+    <!-- Menu do sistema -->
+    <div class="w-full grid grid-cols-2 bg-slate-800 m-auto shadow-md">
+        <!-- Menu de filtros de pesquisa -->
+        <div class="flex flex-col items-center gap-2 p-2">
+            <h1>Filtro do pesquisa</h1>
+
+            <form method="GET">
+                {% csrf_token %}
+
+                {{ form.military }}
+
+                {{ form.subunit }}
+
+                {{ form.destination }}
+
+                {{ form.date }}
+
+                <button type="submit"
+                    class="bg-green-800 hover:bg-green-600 rounded-md shadow-md p-2 cursor-pointer font-semibold">
+                    Pesquisar
+                </button>
+            </form>
+        </div>
+
+        <!-- Menu de gerar relatorio -->
+        <div class="flex flex-col items-center gap-2 p-2">
+            <h1>Gerar relatórios</h1>
+
+            <form method="GET">
+                {% csrf_token %}
+                <button type="submit"
+                    class="bg-blue-800 hover:bg-blue-600 rounded-md shadow-md p-2 cursor-pointer font-semibold">
+                    Salvar Relatário
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de dados -->
+    <div class="flex flex-col w-full max-w-7xl bg-slate-700 h-[500px] shadow-md mb-10 rounded-b-md">
+        <table class="text-center">
+            <thead class="bg-slate-900 text-sm">
+                <tr>
+                    <th class="p-2">Nome</th>
+                    <th class="p-2">Nome</th>
+                    <th class="p-2">Nome</th>
+                </tr>
+            </thead>
+            <tbody class="bg-slate-600">
+                {% for presence in presences %}
+                    <tr class="shadow-md">
+                        <td class="p-2">{{ presence.date }}</td>
+                        <td class="p-2">data</td>
+                        <td class="p-2">data</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
