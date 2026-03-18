@@ -122,6 +122,9 @@ class Ranks(models.Model):
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         managed = False
         db_table = 'ranks'
