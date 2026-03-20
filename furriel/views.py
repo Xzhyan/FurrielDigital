@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 from xhtml2pdf import pisa
+from collections import defaultdict
 
 # Models
 from .models import Destinations, Militaries, Presences, Ranks
@@ -20,6 +21,7 @@ def save_pdf(presences):
 def index(request):
     form = FilterForm(request.GET)
     presences = Presences.objects.none()
+    grouped_presences = {}
 
     if form.is_valid():
         rank = form.cleaned_data.get('rank')
@@ -31,14 +33,11 @@ def index(request):
         if month:
             presences = Presences.objects.filter(
                 date__year=month.year,
-                date__month=month.month
-            ).select_related(
-                'military__rank',
-                'military__subunit',
-                'destination'
+                date__month=month.month,
+                military__status='ativa'
+            ).exclude(
+                destination__destination__in=['PRONTO', 'SSV']
             )
-
-        print(month)
 
         filters = {}
 
@@ -56,6 +55,27 @@ def index(request):
 
         presences = presences.filter(**filters)
 
+        presences = presences.select_related(
+            'military__rank',
+            'military__subunit',
+            'destination'
+        ).order_by(
+            'date', 'destination__destination'
+        )
+
+        grouped_presences = defaultdict(lambda: defaultdict(list))
+
+        for p in presences:
+            date = p.date
+            destination = p.destination.destination
+            grouped_presences[date][destination].append(p)
+
+        grouped_presences = {
+            date: dict(destinations)
+            for date, destinations in grouped_presences.items()
+        }
+
+
     if request.method == 'POST':
         html = save_pdf(presences)
         response = HttpResponse(content_type='application/pdf')
@@ -68,6 +88,7 @@ def index(request):
     context = {
         'form': form,
         'presences': presences,
+        'gpd_p': grouped_presences,
     }
 
     return render(request, 'furriel/index.html', context)

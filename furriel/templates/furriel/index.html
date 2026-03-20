@@ -45,29 +45,21 @@
 
     <!-- Lista de dados -->
     <div class="flex flex-col w-full max-w-4xl bg-slate-700 h-[324px] shadow-md mb-4 rounded-b-md overflow-y-auto">
-        <table class="text-center w-full">
-            <thead class="bg-slate-900 text-sm sticky top-0 z-10">
-                <tr>
-                    <th class="p-2">PG</th>
-                    <th class="p-2">Nome</th>
-                    <th class="p-2">Subunidade</th>
-                    <th class="p-2">Destino</th>
-                    <th class="p-2">Data</th>
-                </tr>
-            </thead>
+        <div class="text-center">
+            {% for date, destinations in gpd_p.items %}
+                <p class="w-full bg-slate-950 p-1 text-sm">{{ date|date:"d/m/Y" }}</p>
 
-            <tbody>
-                {% for presence in presences %}
-                    <tr class="bg-slate-600 shadow-md">
-                        <td class="p-2">{{ presence.military.rank.name }}</td>
-                        <td class="p-2">{{ presence.military.name }}</td>
-                        <td class="p-2">{{ presence.military.subunit }}</td>
-                        <td class="p-2">{{ presence.destination }}</td>
-                        <td class="p-2">{{ presence.date|date:"d/m/Y" }}</td>
-                    </tr>
+                {% for destination, presences in destinations.items %}
+                    <p class="text-gray-600 w-full bg-slate-900 p-1">{{ destination }}</p>
+
+                    <div class="flex flex-col border-b-2 border-slate-950">
+                        {% for p in presences %}
+                            <p class="w-full bg-slate-800 p-1 shadow-md">{{ p.military.rank }} {{ p.military.name }}</p>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
-            </tbody>
-        </table>
+
+            {% endfor %}
+        </div>
     </div>
-</div>
 {% endblock %}
