@@ -97,10 +97,6 @@ def report_pdf(presences):
         if destination == 'FÉRIAS':
             military_stats[name]['ferias'] += 1
 
-        # Dispensa
-        elif destination.startswith('DISP'): # modificar para pegar todos
-            military_stats[name]['outros'] += 1
-
         # Serviço
         elif destination == 'SERVIÇO':
             if is_weekend or is_holidays:
@@ -108,6 +104,10 @@ def report_pdf(presences):
             
             else:
                 military_stats[name]['preta'] += 1
+
+        # Outros dipos de dispensa
+        else:
+            military_stats[name]['outros'] += 1
 
     # Cabeçalho do relatorio, primeira tabela
     table_pdf = [
@@ -177,7 +177,7 @@ def report_pdf(presences):
             "Férias",
             "Outros",
             "SV Preta",
-            "SV Vermlha"
+            "SV Vermelha"
         ]
     ]
 
