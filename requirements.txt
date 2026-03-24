@@ -1,7 +1,6 @@
 asgiref==3.11.1
 charset-normalizer==3.4.6
 Django==4.1.13
-django-browser-reload==1.21.0
 holidays==0.93
 mysqlclient==2.2.8
 pillow==12.1.1
