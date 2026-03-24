@@ -44,21 +44,22 @@
     </div>
 
     <!-- Lista de dados -->
-    <div class="flex flex-col w-full max-w-4xl bg-slate-700 h-[324px] shadow-md mb-4 rounded-b-md overflow-y-auto">
-        <div class="text-center">
+    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-[324px] shadow-md mb-4 rounded-b-md overflow-y-auto">
+        <div class="grid grid-cols-4">
             {% for date, destinations in gpd_p.items %}
-                <p class="w-full bg-slate-950 p-1 text-sm">{{ date|date:"d/m/Y" }}</p>
+                <div class="text-center">
+                    <p class="w-full bg-slate-950 p-1 text-sm">{{ date|date:"d/m/Y" }}</p>
 
-                {% for destination, presences in destinations.items %}
-                    <p class="text-gray-600 w-full bg-slate-900 p-1">{{ destination }}</p>
+                    {% for destination, presences in destinations.items %}
+                        <p class="text-gray-600 w-full bg-slate-900 p-1">{{ destination }}</p>
 
-                    <div class="flex flex-col border-b-2 border-slate-950">
-                        {% for p in presences %}
-                            <p class="w-full bg-slate-800 p-1 shadow-md">{{ p.military.rank }} {{ p.military.name }}</p>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-
+                        <div class="flex flex-col border-b-2 border-slate-950">
+                            {% for p in presences %}
+                                <p class="w-full bg-slate-800 p-1 shadow-md">{{ p.military.rank }} {{ p.military.name }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
         </div>
     </div>
