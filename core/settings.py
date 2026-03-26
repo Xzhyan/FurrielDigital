@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # "django_browser_reload",
     # novos apps
-    'furriel'
+    'furriel',
+    'scan'
 ]
 
 MIDDLEWARE = [
