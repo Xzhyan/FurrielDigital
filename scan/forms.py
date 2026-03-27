@@ -1,10 +1,28 @@
 from django import forms
 
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+
+        if isinstance(data, (list, tuple)):
+            return [super().clean(d, initial) for d in data]
+
+        return super().clean(data, initial)
+
+
 class ScanForm(forms.Form):
-    scan_file = forms.FileField(
+    scan_file = MultipleFileField(
         required=True,
-        widget=forms.ClearableFileInput(attrs={
+        widget=MultipleFileInput(attrs={
             'accept': ".pdf",
+            'multiple': True,
             'class': "bg-slate-900 rounded-md shadow-md p-2"
         })
     )

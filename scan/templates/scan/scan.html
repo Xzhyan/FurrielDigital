@@ -10,6 +10,7 @@
             <h1>Inserir documento para escanear</h1>
 
             <form method="POST" enctype="multipart/form-data" class="text-center space-y-2">
+                {% csrf_token %}
 
                 {{ form.scan_file }}
                 
@@ -37,7 +38,16 @@
     </div>
 
     <!-- Lista de dados -->
-    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-[100vh] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto">
-        
+    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-[100vh] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto flex flex-col gap-2 p-2 text-center">
+        <p class="font-semibold">O nome buscado foi encontrado nos seguintes documentos:</p>
+        {% for file, pages in scanned_files.items %}
+            <p class="bg-slate-800 rounded-md shadow-md p-2">
+                Documento: {{ file }} - encontrado nas páginas: {{ pages }}
+            </p>
+        {% empty %}
+            <p class="bg-slate-800 rounded-md shadow-md p-2">
+                Nenhum arquivo foi escaneado...
+            </p>
+        {% endfor %}
     </div>
 {% endblock %}
