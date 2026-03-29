@@ -208,3 +208,7 @@ __marimo__/
 
 # Pacotes
 pack/
+
+# Tailwind compilado
+tailwind.config.js
+tailwindcss.exe

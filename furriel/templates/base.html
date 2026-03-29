@@ -1,7 +1,3 @@
-<!-- Reload automatico da página -->
-{% load django_browser_reload %}
-{% django_browser_reload_script %}
-
 <!-- Arquivos estaticos -->
 {% load static %}
 
@@ -13,21 +9,23 @@
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Tailwindcss CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+
+    <link rel="stylesheet" href="{% static 'furriel/output.css' %}">
 </head>
-<body class="bg-zinc-900 text-gray-300">
+<body class="min-h-screen flex flex-col bg-zinc-900 text-gray-300">
     <header class="flex">
         <div class="w-full bg-slate-950 p-2 text-center shadow-md">
             <h1 class="font-semibold">Furriel Digital</h1>
         </div>
     </header>
 
-    <main>
+    <main class="flex-1">
         {% block content %}{% endblock %}
     </main>
 
     <footer class="flex justify-center items-center w-full h-20 bg-slate-950">
-        <p>&copy; 2026, Cb Leadro Santos</p>
+        <p>&copy; 2026, Cb Leandro Santos</p>
     </footer>
 </body>
 </html>

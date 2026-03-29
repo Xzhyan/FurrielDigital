@@ -44,8 +44,8 @@
     </div>
 
     <!-- Lista de dados -->
-    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-[324px] shadow-md mb-4 rounded-b-md overflow-y-auto">
-        <div class="grid grid-cols-4">
+    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-[100vh] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto">
+        <div class="grid grid-cols-4 gap-2 p-2">
             {% for date, destinations in gpd_p.items %}
                 <div class="text-center">
                     <p class="w-full bg-slate-950 p-1 text-sm">{{ date|date:"d/m/Y" }}</p>
@@ -59,6 +59,10 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
+                </div>
+            {% empty %}
+                <div class="col-span-4">
+                    <p class="text-center text-white">Escolha no mínimo um mês para fazer a busca...</p>
                 </div>
             {% endfor %}
         </div>
