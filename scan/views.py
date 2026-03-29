@@ -69,7 +69,7 @@ def scan(request):
                     found, page = search_text(temp_path, text)
 
                     # Se foi encontrado ele adiciona no dicionario
-                    if found:
+                    if found and page == 1: # o 'page = 1' é para minimizar o filtro só até a primeira pagina dos pdfs onde mostra os serviços
                         scanned_files.setdefault(file.name, []).append(page)
                 
                 finally:

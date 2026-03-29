@@ -22,27 +22,14 @@
                 </button>
             </form>
         </div>
-
-        <!-- Menu de gerar relatorio -->
-        <div class="flex flex-col items-center gap-2 p-2">
-            <h1>Gerar relatórios</h1>
-
-            <form method="POST">
-                {% csrf_token %}
-                <button type="submit" name="save_pdf" value="save_pdf"
-                    class="bg-blue-800 hover:bg-blue-600 rounded-md shadow-md p-2 cursor-pointer font-semibold">
-                    Salvar Relatário
-                </button>
-            </form>
-        </div>
     </div>
 
     <!-- Lista de dados -->
-    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-[100vh] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto flex flex-col gap-2 p-2 text-center">
+    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-\[100vh\] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto flex flex-col gap-2 p-2 text-center">
         <p class="font-semibold">O nome buscado foi encontrado nos seguintes documentos:</p>
         {% for file, pages in scanned_files.items %}
             <p class="bg-slate-800 rounded-md shadow-md p-2">
-                Documento: {{ file }} - encontrado nas páginas: {{ pages }}
+                {{ file }} | Página(s): {{ pages }}
             </p>
         {% empty %}
             <p class="bg-slate-800 rounded-md shadow-md p-2">
