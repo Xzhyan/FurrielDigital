@@ -40,18 +40,11 @@ class FilterForm(forms.Form):
         })
     )
 
-    # date = forms.DateField(
-    #     required=False,
-    #     widget=forms.DateInput(attrs={
-    #         'type': "date",
-    #         'class': "bg-slate-900 rounded-md shadow-md p-2"
-    #     })
-    # )
-
     month = forms.DateField(
         input_formats=['%Y-%m'],
         widget=forms.DateInput(attrs={
             'type': "month",
+            'placeholder': "AAAA-MM",
             'class': "bg-slate-900 rounded-md shadow-md p-2"
         })
     )
