@@ -1,10 +1,18 @@
 from django.shortcuts import render
 from collections import defaultdict
 import tempfile, os
-import fitz
+import fitz, unicodedata
 
 # Forms
 from .forms import ScanForm
+
+
+def normalize_text(text):
+    """Função para normalizar o texto antes da pesquisa"""
+    return unicodedata.normalize('NFKD', text) \
+        .encode("ASCII", "ignore") \
+        .decode("ASCII") \
+        .lower()
 
 
 def search_text(temp_path, text):
@@ -12,15 +20,22 @@ def search_text(temp_path, text):
 
     doc = fitz.open(temp_path)
 
-    text = text.lower()
+    role = normalize_text("Cabo de Gds")
+    name_parts = normalize_text(text).split()
 
-    for page_num, page in enumerate(doc):
-        content = page.get_text().lower()
+    try:
+        for page_num, page in enumerate(doc):
+            content = page.get_text()
+            normalize_content = normalize_text(content)
 
-        if text in content:
-            return True, page_num + 1
+            for role in normalize_content:
+                if all(part in normalize_content for part in name_parts):
+                    return True, page_num + 1
+
+        return False, None
     
-    return False, None
+    finally:
+        doc.close()
 
 
 def scan(request):
@@ -55,7 +70,7 @@ def scan(request):
 
                     # Se foi encontrado ele adiciona no dicionario
                     if found:
-                        scanned_files[file.name].append(page)
+                        scanned_files.setdefault(file.name, []).append(page)
                 
                 finally:
                     if temp_path and os.path.exists(temp_path):
