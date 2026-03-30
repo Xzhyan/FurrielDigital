@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-g%b%xxkqmy-r2pw!^y7iww&@7i!&lafeoleox9hhw^(a!j@vkf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.3.33']
+ALLOWED_HOSTS = ['192.168.3.33', '127.0.0.1']
 
 
 # Application definition
@@ -66,28 +66,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sisconef',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '192.168.3.6',
-        'PORT': '3306'
-    }
-}
-
-# Banco de Dados local
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'sisconef',
 #         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': '127.0.0.1',
+#         'PASSWORD': 'root',
+#         'HOST': '192.168.3.6',
 #         'PORT': '3306'
 #     }
 # }
+
+# Banco de Dados local
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sisconef',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
+    }
+}
 
 
 # Password validation
