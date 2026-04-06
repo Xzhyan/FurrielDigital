@@ -23,7 +23,7 @@ class ScanForm(forms.Form):
         widget=MultipleFileInput(attrs={
             'accept': ".pdf",
             'multiple': True,
-            'class': "bg-slate-900 rounded-md shadow-md p-2"
+            'class': "h-20 bg-slate-900 rounded-md shadow-md p-2"
         })
     )
     text_scan = forms.CharField(

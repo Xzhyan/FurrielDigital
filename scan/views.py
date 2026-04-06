@@ -17,6 +17,7 @@ def normalize_text(text):
 
 
 def create_pdf(results):
+    """Gera um pdf unico com todas as paginas onde o nome foi encontrado"""
     output_doc = fitz.open()
 
     try:

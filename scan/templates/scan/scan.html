@@ -6,35 +6,28 @@
     <!-- Menu do sistema -->
     <div class="w-full grid grid-cols-2 bg-slate-800 m-auto shadow-md">
         <!-- Menu de filtros de pesquisa -->
-        <div class="flex flex-col items-center gap-2 p-2">
-            <h1>Inserir documento para escanear</h1>
-
-            <form method="POST" enctype="multipart/form-data" class="text-center space-y-2">
-                {% csrf_token %}
-
-                {{ form.scan_file }}
-                
-                {{ form.text_scan }}
-
-                <button type="submit"
-                    class="bg-green-800 hover:bg-green-600 rounded-md shadow-md p-2 cursor-pointer font-semibold">
-                    Escanear
-                </button>
-            </form>
+        <div class="flex flex-col items-center text-center gap-2 p-2">
+            <p>Arraste ou abra vários arquivos em formato '.pdf', digite o nome que deseja buscar e use o botão verde para escanear.</p>
+            <hr>
+            <p>Após escaneado os arquivos, as páginas onde foram encontrados os nomes vão ser combinadas em um único pdf para download.</p>
         </div>
     </div>
 
     <!-- Lista de dados -->
-    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-\[100vh\] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto flex flex-col gap-2 p-2 text-center">
-        <p class="font-semibold">O nome buscado foi encontrado nos seguintes documentos:</p>
-        {% for file, pages in scanned_files.items %}
-            <p class="bg-slate-800 rounded-md shadow-md p-2">
-                {{ file }} | Página(s): {{ pages }}
-            </p>
-        {% empty %}
-            <p class="bg-slate-800 rounded-md shadow-md p-2">
-                Nenhum arquivo foi escaneado...
-            </p>
-        {% endfor %}
+    <div class="w-full min-w-4xl max-w-6xl bg-slate-700 h-\[100vh\] md:h-[50vh] shadow-md mb-4 rounded-b-md overflow-y-auto gap-2 p-2 flex flex-col items-center text-center">
+        <h1>Inserir documento para escanear</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="w-100 flex flex-col text-center space-y-2">
+            {% csrf_token %}
+            
+            {{ form.text_scan }}
+
+            {{ form.scan_file }}
+
+            <button type="submit"
+                class="bg-green-800 hover:bg-green-600 rounded-md shadow-md p-2 cursor-pointer font-semibold">
+                Escanear
+            </button>
+        </form>
     </div>
 {% endblock %}
