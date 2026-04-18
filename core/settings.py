@@ -66,25 +66,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'sisconef',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': '192.168.3.6',
-#         'PORT': '3306'
-#     }
-# }
-
-# Banco de Dados local
+# Banco de Dados (SISCONEF)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sisconef',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'root',
+        'HOST': '192.168.3.6',
         'PORT': '3306'
     }
 }
